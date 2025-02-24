@@ -1,4 +1,5 @@
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
+
 @include mat-core();
 
 $blue: (
@@ -35,9 +36,16 @@ $blue: (
 );
 
 
-$my-app-primary: mat-palette($blue);
-$my-app-accent:  mat-palette($blue, 500, 900, A100);
-$my-app-warn:    mat-palette($mat-deep-orange);
+$my-app-primary: mat.define-pallette($blue);
+$my-app-accent:  mat.define-pallette($blue, 500, 900, A100);
+$my-app-warn:    mat.define-pallette($mat-deep-orange);
 
-$my-app-theme: mat-dark-theme($my-app-primary, $my-app-accent, $my-app-warn);
-@include angular-material-theme($my-app-theme);
+$my-app-theme: mat.define-light-theme((
+  color: (
+    primary: $my-app-primary,
+    accent: $my-app-accent,
+    warn: $my-app-warn,
+    )
+));
+
+@include mat.all-component-themes($my-app-theme);

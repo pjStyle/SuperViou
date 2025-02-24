@@ -11,7 +11,6 @@ import { SettingsDialog } from './settings/settings.dialog';
 
 @NgModule({
   declarations: [HomeComponent, SettingsDialog, DndDirective],
-  imports: [CommonModule, SharedModule, HomeRoutingModule],
-  entryComponents: []
+  imports: [CommonModule, SharedModule, HomeRoutingModule]
 })
 export class HomeModule {}

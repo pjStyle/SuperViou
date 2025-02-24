@@ -260,14 +260,14 @@ function generateFilters(newWidth:number, newHeight:number, originalWidth:number
       wY.write("\n");
     }  
     console.log("iterations", i);
-    var xEnd = new Promise((res, reject) => {
+    var xEnd = new Promise<void>((res, reject) => {
       wX.end(() => {
         console.log("done writing X filter");
         res();
       });
     });
     
-    var yEnd = new Promise((res, reject) => {
+    var yEnd = new Promise<void>((res, reject) => {
       wY.end(() => {
         console.log("done writing Y filter");
         res();
@@ -284,7 +284,7 @@ function generateFilters(newWidth:number, newHeight:number, originalWidth:number
 function encode(inputFile:string, outputFile:string, codec:string, bit_rate:number, duration: number, filters, settings:SettingsModel){
   
   win.webContents.send('EventEncodingStarted');
-  return new Promise((resolve, reject) => {
+  return new Promise<void>((resolve, reject) => {
     let args = ["-hide_banner", "-progress", "pipe:1", "-loglevel", "panic", "-y", "-re", "-i", inputFile, "-i", filters.x, "-i", filters.y, "-filter_complex", `remap,format=yuv444p,format=yuv420p,scale=-1:${settings.upscale}`, "-c:v", codec, "-b:v", bit_rate, "-c:a", "aac", "-x265-params", "log-level=error", outputFile];
     
     const ffmpegExec = spawn(ffmpegPath, args);
